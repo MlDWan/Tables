@@ -16,24 +16,17 @@ import {
   getAllFlats,
   getFlat,
 } from "../../../store/requests/flatRequests";
-import TransitionsModal from "../Modals/Modal";
 import ChangeFlatTextFields from "../Forms/changeForms/ChangeFormFlat";
 import ChangeTransitionsModal from "../Modals/changeModal";
 import FilterModal from "../Modals/FilretModal";
 import FilterFlatTextFields from "../Forms/FilterFlat";
 import InfoModal from "../Modals/ModalInfo";
-import ModalInfo from "../Modals/ModalInfo";
-import CustomizedTables from "./TabInfo/FlatInfo";
-import ReactVirtualizedTable from "./TabInfo/FlatInfo";
-import AcccessibleTable from "./TabInfo/FlatInfo";
-import OwnerInfo from "./TabInfo/OwnerInfo";
 import FlatInfo from "./TabInfo/FlatInfo";
 
 export const MUITableFlats = () => {
   const dispatch = useDispatch();
   const [item, setItem] = useState(null);
   const oneFlat = useSelector((state) => state.tables.oneFlat);
-  console.log(oneFlat);
   useEffect(() => {
     dispatch(getAllFlats({}));
   }, []);

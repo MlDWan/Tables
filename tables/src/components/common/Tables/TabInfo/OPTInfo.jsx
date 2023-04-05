@@ -10,7 +10,6 @@ import {
 import React from "react";
 
 const OPTInfo = ({ info }) => {
-  console.log(12, info);
   return (
     <TableContainer component={Paper}>
       <Table aria-label="caption table">

@@ -10,13 +10,8 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  changeOwner,
-  deleteOwner,
-  getAllOwners,
-} from "../../../store/requests/ownersRequest";
+
 import ChangeTransitionsModal from "../Modals/changeModal";
-import ChangeOwnerTextFields from "../Forms/changeForms/ChangeFormOwner";
 import {
   changeOpt,
   deleteOpt,

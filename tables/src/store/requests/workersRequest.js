@@ -21,7 +21,6 @@ export const getWorker = createAsyncThunk(
   "worker",
   async (data, { rejectWithValue }) => {
     try {
-      console.log(await requestWorker(data));
       return await requestWorker(data);
     } catch (e) {
       return rejectWithValue(e?.response?.data.message ?? "");

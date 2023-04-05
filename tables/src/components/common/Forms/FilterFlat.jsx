@@ -1,12 +1,8 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import ContainedButtons from "../Buttons/ButtonAdd";
 import { useState } from "react";
-import FilterContainedButtons from "../Buttons/ButtonFilter";
 import { Button } from "@mui/material";
-import { getAllFlats } from "../../../store/requests/flatRequests";
-import { useDispatch } from "react-redux";
 
 export default function FilterFlatTextFields({ onSubmit }) {
   const [fieldOne, setFieldOne] = useState("");
@@ -16,7 +12,6 @@ export default function FilterFlatTextFields({ onSubmit }) {
   const [fieldFive, setFieldFive] = useState("");
   const [fieldSix, setFieldSix] = useState("");
   const [fieldSeven, setFieldSeven] = useState("");
-  const dispatch = useDispatch();
 
   const submit = (e) => {
     e.preventDefault();

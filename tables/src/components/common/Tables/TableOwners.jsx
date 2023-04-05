@@ -18,9 +18,7 @@ import {
 } from "../../../store/requests/ownersRequest";
 import ChangeTransitionsModal from "../Modals/changeModal";
 import ChangeOwnerTextFields from "../Forms/changeForms/ChangeFormOwner";
-import TransitionsModal from "../Modals/Modal";
 import InfoModal from "../Modals/ModalInfo";
-import { getFlat } from "../../../store/requests/flatRequests";
 import OwnerInfo from "./TabInfo/OwnerInfo";
 
 export const MUITableOwners = () => {

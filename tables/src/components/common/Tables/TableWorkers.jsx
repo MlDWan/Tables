@@ -19,7 +19,6 @@ import {
 } from "../../../store/requests/workersRequest";
 import ChangeWorkerTextFields from "../Forms/changeForms/ChangeFormWorker";
 import InfoModal from "../Modals/ModalInfo";
-import FlatInfo from "./TabInfo/FlatInfo";
 import WorkerInfo from "./TabInfo/WorkerInfo";
 
 export const MUITableWorkers = () => {

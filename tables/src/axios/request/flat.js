@@ -16,7 +16,6 @@ export const requestFlat = async (id) => {
     method: METHODS.GET,
     url,
   });
-  console.log(data);
   return data;
 };
 

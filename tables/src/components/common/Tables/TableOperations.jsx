@@ -10,16 +10,8 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  changeFlat,
-  deleteFlat,
-  getAllFlats,
-} from "../../../store/requests/flatRequests";
-import TransitionsModal from "../Modals/Modal";
-import ChangeFlatTextFields from "../Forms/changeForms/ChangeFormFlat";
 import ChangeTransitionsModal from "../Modals/changeModal";
 import FilterModal from "../Modals/FilretModal";
-import FilterFlatTextFields from "../Forms/FilterFlat";
 import {
   changeOp,
   deleteOp,
@@ -45,7 +37,6 @@ export const MUITableOperations = () => {
   const [openFilter, setOpenFilter] = useState(false);
   const oneOP = useSelector((state) => state.tables.oneOP);
   const handleModalInfo = (id) => {
-    console.log(id);
     if (typeof id !== "object") dispatch(getOp(id));
 
     setOpenInfo((prev) => {
