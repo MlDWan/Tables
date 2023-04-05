@@ -8,58 +8,110 @@ import {
   Paper,
   Button,
 } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { remove } from "../../../store/tableSlice";
-import { getAllFlats } from "../../../store/requests/flatRequests";
+import ChangeTransitionsModal from "../Modals/changeModal";
+import {
+  changeWorker,
+  deleteWorker,
+  getAllWorkers,
+  getWorker,
+} from "../../../store/requests/workersRequest";
+import ChangeWorkerTextFields from "../Forms/changeForms/ChangeFormWorker";
+import InfoModal from "../Modals/ModalInfo";
+import FlatInfo from "./TabInfo/FlatInfo";
+import WorkerInfo from "./TabInfo/WorkerInfo";
 
 export const MUITableWorkers = () => {
   const dispatch = useDispatch();
-  const tableData = useSelector((state) => state.tables.tablesData);
-  // useEffect(() => {
-  //   dispatch();
-  //   // getAllFlats({
-  //   //   ownerId: 1,
-  //   //   fltAreaMin: 1,
-  //   //   fltAreaMax: 1,
-  //   //   intCountMin: 1,
-  //   //   intCountMax: 1,
-  //   //   intStoreyMin: 1,
-  //   //   intStoreyMax: 1,
-  //   // })
-  // }, []);
+  const tableData = useSelector((state) => state.tables.WorkerData);
+  useEffect(() => {
+    dispatch(getAllWorkers());
+  }, []);
+  const handlePropagation = (e) => {
+    e.stopPropagation();
+  };
+  const ChangeDataInTable = (values) => {
+    dispatch(changeWorker(values));
+  };
+  const [item, setItem] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [openInfo, setOpenInfo] = useState(false);
+  const oneWorker = useSelector((state) => state.tables.oneWorker);
+  const handleModalInfo = (id) => {
+    if (typeof id !== "object") dispatch(getWorker(id));
+    setOpenInfo((prev) => {
+      return !prev;
+    });
+  };
+  const handleModal = (id) => {
+    id && setItem(tableData.find((item) => id === item.intWorkerId));
+    setOpen((prev) => {
+      return !prev;
+    });
+  };
   return (
     <TableContainer component={Paper}>
       <Table aria-label={"simple table"}>
         <TableHead>
+          <TableCell>Id</TableCell>
           <TableCell>Фамилия</TableCell>
           <TableCell>Имя</TableCell>
           <TableCell>Отчество</TableCell>
-          <TableCell>Специализация</TableCell>
-          <TableCell>Сумма</TableCell>
+          <TableCell>Специальность</TableCell>
+          <TableCell>Оплата</TableCell>
+          <TableCell></TableCell>
         </TableHead>
         <TableBody>
           {tableData.map((row) => (
             <TableRow
-              key={row.id}
+              onClick={() => handleModalInfo(row.intWorkerId)}
+              key={row.intWorkerId}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              {Object.values(row).map((value) => (
-                <TableCell
-                  key={value.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  {value}
-                </TableCell>
-              ))}
-              <TableCell align="center">
+              <TableCell>{row.intWorkerId}</TableCell>
+              <TableCell>{row.txtWorkerSurname}</TableCell>
+              <TableCell>{row.txtWorkerName}</TableCell>
+              <TableCell>{row.txtWorkerSecondName}</TableCell>
+              <TableCell>{row.txtWorkerSpecialist}</TableCell>
+              <TableCell>{row.fltSum}</TableCell>
+              <TableCell
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  columnGap: 25,
+                }}
+                align="center"
+                onClick={handlePropagation}>
                 <Button
                   variant="outlined"
                   color="error"
-                  onClick={() => dispatch(remove(row))}>
+                  onClick={() => dispatch(deleteWorker(row.intWorkerId))}>
                   Delete
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => handleModal(row.intWorkerId)}>
+                  Change
                 </Button>
               </TableCell>
             </TableRow>
           ))}
+          <ChangeTransitionsModal open={open} handleModal={handleModal}>
+            <ChangeWorkerTextFields
+              handleModal={handleModal}
+              workerId={item?.intWorkerId}
+              surname={item?.txtWorkerSurname}
+              name={item?.txtWorkerName}
+              secondName={item?.txtWorkerSecondName}
+              specialist={item?.txtWorkerSpecialist}
+              sum={item?.fltSum}
+              onSubmit={ChangeDataInTable}
+            />
+          </ChangeTransitionsModal>
+          <InfoModal open={openInfo} width={1000} handleModal={handleModalInfo}>
+            <WorkerInfo info={oneWorker} />
+          </InfoModal>
         </TableBody>
       </Table>
     </TableContainer>

@@ -3,26 +3,14 @@ import TransitionsModal from "./components/common/Modals/Modal";
 import { useState } from "react";
 
 import TabsRouter from "./components/Header";
-import { useDispatch } from "react-redux";
-// import { tablesSlice } from "./store/tableSlice";
 import { Button } from "@mui/material";
-import { createFlat } from "./store/requests/flatRequests";
 import { useLocation } from "react-router-dom";
 
 function App() {
-  const dispatch = useDispatch();
-
   const [open, setOpen] = useState(false);
-  // const { addData } = tablesSlice.actions;
-
-  const addDataInTable = (values) => {
-    console.log(values);
-    dispatch(createFlat(values));
-  };
 
   const handleModal = () => {
     setOpen((prev) => {
-      console.log(prev);
       return !prev;
     });
   };
@@ -32,13 +20,37 @@ function App() {
   return (
     <div className="App">
       <TabsRouter />
-      <Button onClick={handleModal}>Добавить данные</Button>
+      <Button
+        sx={{
+          fontSize: 20,
+          padding: "5px 5px",
+          width: 40,
+          height: 40,
+          minWidth: 0,
+          borderRadius: "50%",
+          lineHeight: "unset",
+          left: 30,
+          bottom: 30,
+          position: "fixed",
+          backgroundColor: `#${Math.random().toString(16).substring(2, 8)}`,
+          boxShadow: `42px 42px 31px 0px rgba(${Math.random()
+            .toString()
+            .substring(2, 4)}, ${Math.random()
+            .toString()
+            .substring(2, 4)}, ${Math.random()
+            .toString()
+            .substring(2, 4)}, 0.2)`,
+        }}
+        color="primary"
+        variant="contained"
+        onClick={handleModal}>
+        +
+      </Button>
+
       <TransitionsModal
         open={open}
         handleModal={handleModal}
         path={location.pathname}
-        onSubmit={addDataInTable}
-        // onClick={addDataInTable}
       />
     </div>
   );

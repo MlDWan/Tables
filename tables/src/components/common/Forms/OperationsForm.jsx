@@ -14,11 +14,10 @@ export default function OperationsTextFields({ onSubmit }) {
   const submit = (e) => {
     e.preventDefault();
     onSubmit({
-      OperationDate: fieldOne,
-      OperationDescription: fieldTwo,
-      WorkerId: fieldThree,
-      flatId: fieldFour,
-      operationTypeId: fieldFive,
+      txtOperationDescription: fieldTwo,
+      intWorkerId: Number(fieldThree),
+      flatId: Number(fieldFour),
+      operationTypeId: fieldFive.split(",").map((e) => Number(e)),
     });
   };
   return (
@@ -29,13 +28,6 @@ export default function OperationsTextFields({ onSubmit }) {
         "& .MuiTextField-root": { width: "100%" },
       }}>
       <form onSubmit={submit} style={{ display: "grid" }}>
-        <TextField
-          value={fieldOne}
-          onChange={(e) => setFieldOne(e.target.value)}
-          label={"Дата начала работ"}
-          id="margin-normal"
-          margin="normal"
-        />
         <TextField
           value={fieldTwo}
           onChange={(e) => setFieldTwo(e.target.value)}

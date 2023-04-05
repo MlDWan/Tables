@@ -13,10 +13,10 @@ export default function OwnersTextFields({ onSubmit }) {
   const submit = (e) => {
     e.preventDefault();
     onSubmit({
-      surname: fieldOne,
-      name: fieldTwo,
-      secondName: fieldThree,
-      address: fieldFour,
+      txtOwnerSurname: String(fieldOne),
+      txtOwnerName: String(fieldTwo),
+      txtOwnerSecondName: String(fieldThree),
+      txtAddress: String(fieldFour),
     });
   };
   return (

@@ -3,24 +3,33 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import ContainedButtons from "../Buttons/ButtonAdd";
 import { useState } from "react";
+import FilterContainedButtons from "../Buttons/ButtonFilter";
+import { Button } from "@mui/material";
+import { getAllFlats } from "../../../store/requests/flatRequests";
+import { useDispatch } from "react-redux";
 
-export default function FlatTextFields({ onSubmit, row }) {
+export default function FilterFlatTextFields({ onSubmit }) {
   const [fieldOne, setFieldOne] = useState("");
   const [fieldTwo, setFieldTwo] = useState("");
   const [fieldThree, setFieldThree] = useState("");
   const [fieldFour, setFieldFour] = useState("");
   const [fieldFive, setFieldFive] = useState("");
+  const [fieldSix, setFieldSix] = useState("");
+  const [fieldSeven, setFieldSeven] = useState("");
+  const dispatch = useDispatch();
+
   const submit = (e) => {
     e.preventDefault();
     onSubmit({
-      txtFlatAddress: fieldOne,
-      fltArea: Number(fieldTwo),
-      intCount: Number(fieldThree),
-      intStorey: Number(fieldFour),
-      ownerId: Number(fieldFive),
+      ownerId: Number(fieldOne),
+      fltAreaMin: Number(fieldTwo),
+      fltAreaMax: Number(fieldThree),
+      intCountMin: Number(fieldFour),
+      intCountMax: Number(fieldFive),
+      intStoreyMin: Number(fieldSix),
+      intStoreyMax: Number(fieldSeven),
     });
   };
-
   return (
     <Box
       sx={{
@@ -32,14 +41,14 @@ export default function FlatTextFields({ onSubmit, row }) {
         <TextField
           value={fieldOne}
           onChange={(e) => setFieldOne(e.target.value)}
-          label={"Адрес"}
+          label={"id пользователя"}
           id="margin-normal"
           margin="normal"
         />
         <TextField
           value={fieldTwo}
           onChange={(e) => setFieldTwo(e.target.value)}
-          label="Этаж"
+          label="Минимальная площадь"
           type="number"
           id="margin-normal"
           margin="normal"
@@ -47,7 +56,7 @@ export default function FlatTextFields({ onSubmit, row }) {
         <TextField
           value={fieldThree}
           onChange={(e) => setFieldThree(e.target.value)}
-          label={"Количество комнат"}
+          label={"Максимальная площадь"}
           id="margin-normal"
           margin="normal"
           type="number"
@@ -55,7 +64,7 @@ export default function FlatTextFields({ onSubmit, row }) {
         <TextField
           value={fieldFour}
           onChange={(e) => setFieldFour(e.target.value)}
-          label={"Площадь"}
+          label={"Минимальный этаж"}
           id="margin-normal"
           margin="normal"
           type="number"
@@ -63,11 +72,30 @@ export default function FlatTextFields({ onSubmit, row }) {
         <TextField
           value={fieldFive}
           onChange={(e) => setFieldFive(e.target.value)}
-          label={"Id владельца"}
+          label={"Максимальный этаж"}
           id="margin-normal"
           margin="normal"
         />
-        <ContainedButtons isSubmit />
+        <TextField
+          value={fieldSix}
+          onChange={(e) => setFieldSix(e.target.value)}
+          label={"Минимум комнат"}
+          id="margin-normal"
+          margin="normal"
+        />
+        <TextField
+          value={fieldSeven}
+          onChange={(e) => setFieldSeven(e.target.value)}
+          label={"Максимум комнат"}
+          id="margin-normal"
+          margin="normal"
+        />
+        <Button variant="outlined" color="warning" type="submit">
+          Применить
+        </Button>
+        <Button variant="outlined" color="inherit" type="submit">
+          Сброс
+        </Button>
       </form>
     </Box>
   );

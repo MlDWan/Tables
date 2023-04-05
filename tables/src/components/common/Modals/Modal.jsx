@@ -8,6 +8,12 @@ import FlatTextFields from "../Forms/Form";
 import WorkersTextFields from "../Forms/WorkersForm";
 import TypeOperationsTextFields from "../Forms/TypeOperationsForm";
 import OperationsTextFields from "../Forms/OperationsForm";
+import { useDispatch } from "react-redux";
+import { createFlat } from "../../../store/requests/flatRequests";
+import { createOwner } from "../../../store/requests/ownersRequest";
+import { createWorker } from "../../../store/requests/workersRequest";
+import { createOpt } from "../../../store/requests/typeOperationsRequest";
+import { createOp } from "../../../store/requests/operationsRequest";
 
 const style = {
   position: "absolute",
@@ -24,22 +30,64 @@ const style = {
 export default function TransitionsModal({
   open,
   handleModal,
-  children,
   path,
   onSubmit,
 }) {
-  if (path === "/owners") children = <OwnersTextFields onSubmit={onSubmit} />;
+  let children;
 
-  if (path === "/flat/getAll")
-    children = <FlatTextFields onSubmit={onSubmit} />;
+  const dispatch = useDispatch();
+  const addDataInTable = (values) => {
+    dispatch(createFlat(values));
+  };
+  const addDataInTableOwner = (values) => {
+    dispatch(createOwner(values));
+  };
+  const addDataInTableOP = (values) => {
+    dispatch(createOp(values));
+  };
+  const addDataInTableOPT = (values) => {
+    dispatch(createOpt(values));
+  };
+  const addDataInTableWorker = (values) => {
+    dispatch(createWorker(values));
+  };
 
-  if (path === "/workers") children = <WorkersTextFields onSubmit={onSubmit} />;
+  const handleSubmitFlat = (values) => {
+    addDataInTable(values);
+    handleModal();
+  };
+  const handleSubmitOwner = (values) => {
+    addDataInTableOwner(values);
+    handleModal();
+  };
+  const handleSubmitOP = (values) => {
+    addDataInTableOP(values);
+    handleModal();
+  };
+  const handleSubmitOPT = (values) => {
+    addDataInTableOPT(values);
+    handleModal();
+  };
+  const handleSubmitWorker = (values) => {
+    addDataInTableWorker(values);
+    handleModal();
+  };
+
+  if (path === "/owner")
+    children = <OwnersTextFields onSubmit={handleSubmitOwner} />;
+
+  if (path === "/flat/getAll") {
+    children = <FlatTextFields onSubmit={handleSubmitFlat} />;
+  }
+
+  if (path === "/worker")
+    children = <WorkersTextFields onSubmit={handleSubmitWorker} />;
 
   if (path === "/opt")
-    children = <TypeOperationsTextFields onSubmit={onSubmit} />;
+    children = <TypeOperationsTextFields onSubmit={handleSubmitOPT} />;
 
   if (path === "/op/getAll")
-    children = <OperationsTextFields onSubmit={onSubmit} />;
+    children = <OperationsTextFields onSubmit={handleSubmitOP} />;
 
   return (
     <div>

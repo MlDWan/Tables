@@ -14,11 +14,11 @@ export default function WorkersTextFields({ onSubmit }) {
   const submit = (e) => {
     e.preventDefault();
     onSubmit({
-      surname: fieldOne,
-      name: fieldTwo,
-      secondName: fieldThree,
-      specialist: fieldFour,
-      fltSum: fieldFive,
+      txtWorkerSurname: String(fieldOne),
+      txtWorkerName: String(fieldTwo),
+      txtWorkerSecondName: String(fieldThree),
+      txtWorkerSpecialist: String(fieldFour),
+      fltSum: Number(fieldFive),
     });
   };
   return (

@@ -1,5 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { requestAllFlats, requestCreateFlat, requestToDeleteFlat } from "../../axios/request/flat";
+import {
+  requestAllFlats,
+  requestCreateFlat,
+  requestFlat,
+  requestToChangeFlat,
+  requestToDeleteFlat,
+} from "../../axios/request/flat";
 
 export const getAllFlats = createAsyncThunk(
   "flat/getAll",
@@ -15,7 +21,8 @@ export const createFlat = createAsyncThunk(
   "flat",
   async (data, { rejectWithValue }) => {
     try {
-      return await requestCreateFlat(data);
+      await requestCreateFlat(data);
+      return await requestAllFlats({});
     } catch (e) {
       return rejectWithValue(e?.response?.data.message ?? "");
     }
@@ -24,43 +31,35 @@ export const createFlat = createAsyncThunk(
 
 export const deleteFlat = createAsyncThunk(
   "flat/",
-  async (matter, { rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
-      return await requestToDeleteFlat(matter);
+      await requestToDeleteFlat(data);
+      return await requestAllFlats({});
     } catch (e) {
       return rejectWithValue(e?.response?.data.message ?? "");
     }
   }
 );
-// export const changeStatus = createAsyncThunk<FullMatter[], ChangeMatter, { rejectValue: string }>(
-//   'matter/changeStatus',
-//   async (matter, { rejectWithValue }) => {
-//     try {
-//       return (await requestToChangeStatus(matter.id, matter.active)) as FullMatter[];
-//     } catch (e: any) {
-//       return rejectWithValue(e?.response?.data.message ?? '')
-//     }
-//   }
-// );
 
-// export const createNewOne = createAsyncThunk<FullMatter[], MatterCreation, { rejectValue: string }>(
-//   'matter/create',
-//   async (matter, { rejectWithValue }) => {
-//     try {
-//       return (await requestToCreate(matter)) as FullMatter[];
-//     } catch (e: any) {
-//       return rejectWithValue(e?.response?.data.message ?? '')
-//     }
-//   }
-// );
+export const getFlat = createAsyncThunk(
+  "get-flat",
+  async (data, { rejectWithValue }) => {
+    try {
+      return await requestFlat(data);
+    } catch (e) {
+      return rejectWithValue(e?.response?.data.message ?? "");
+    }
+  }
+);
 
-// export const changeMatter = createAsyncThunk<FullMatter[], MatterChanging, { rejectValue: string }>(
-//   'matter/change',
-//   async (matter, { rejectWithValue }) => {
-//     try {
-//       return (await requestToChange(matter)) as FullMatter[];
-//     } catch (e: any) {
-//       return rejectWithValue(e?.response?.data.message ?? '')
-//     }
-//   }
-// );
+export const changeFlat = createAsyncThunk(
+  "flat-change",
+  async (data, { rejectWithValue }) => {
+    try {
+      await requestToChangeFlat(data);
+      return await requestAllFlats({});
+    } catch (e) {
+      return rejectWithValue(e?.response?.data.message ?? "");
+    }
+  }
+);

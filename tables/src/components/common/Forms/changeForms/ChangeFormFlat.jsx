@@ -1,26 +1,37 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import ContainedButtons from "../Buttons/ButtonAdd";
 import { useState } from "react";
+import ContainedButtons from "../../Buttons/ButtonAdd";
+import ContainedButtonCancel from "../../Buttons/ButtonCancel";
 
-export default function FlatTextFields({ onSubmit, row }) {
-  const [fieldOne, setFieldOne] = useState("");
-  const [fieldTwo, setFieldTwo] = useState("");
-  const [fieldThree, setFieldThree] = useState("");
-  const [fieldFour, setFieldFour] = useState("");
-  const [fieldFive, setFieldFive] = useState("");
+export default function ChangeFlatTextFields({
+  onSubmit,
+  flatId,
+  address,
+  storney,
+  count,
+  area,
+  owner,
+  handleModal,
+}) {
+  const [fieldOne, setFieldOne] = useState(address);
+  const [fieldTwo, setFieldTwo] = useState(count);
+  const [fieldThree, setFieldThree] = useState(storney);
+  const [fieldFour, setFieldFour] = useState(area);
+  const [fieldFive, setFieldFive] = useState(owner);
   const submit = (e) => {
     e.preventDefault();
     onSubmit({
-      txtFlatAddress: fieldOne,
-      fltArea: Number(fieldTwo),
+      id: Number(flatId),
+      intStorey: Number(fieldTwo),
+      fltArea: Number(fieldFour),
       intCount: Number(fieldThree),
-      intStorey: Number(fieldFour),
-      ownerId: Number(fieldFive),
+      txtFlatAddress: fieldOne,
+      intOwnerId: Number(fieldFive),
     });
+    handleModal();
   };
-
   return (
     <Box
       sx={{

@@ -1,19 +1,28 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import ContainedButtons from "../Buttons/ButtonAdd";
 import { useState } from "react";
+import ContainedButtons from "../../Buttons/ButtonAdd";
+import ContainedButtonCancel from "../../Buttons/ButtonCancel";
 
-export default function TypeOperationsTextFields({ onSubmit }) {
-  const [fieldOne, setFieldOne] = useState("");
-  const [fieldTwo, setFieldTwo] = useState("");
+export default function ChangeOpTextFields({
+  onSubmit,
+  opId,
+  date,
+  descriptionOp,
+  handleModal,
+}) {
+  const [fieldOne, setFieldOne] = useState(date);
+  const [fieldTwo, setFieldTwo] = useState(descriptionOp);
 
   const submit = (e) => {
     e.preventDefault();
     onSubmit({
-      fltOperationPrice: Number(fieldOne),
-      txtOperationTypeName: fieldTwo,
+      intOperationId: opId,
+      datOperationDate: fieldOne,
+      txtOperationDescription: fieldTwo,
     });
+    handleModal();
   };
   return (
     <Box
@@ -26,15 +35,15 @@ export default function TypeOperationsTextFields({ onSubmit }) {
         <TextField
           value={fieldOne}
           onChange={(e) => setFieldOne(e.target.value)}
-          label={"Стоимость работы"}
+          label={"Дата"}
+          type="date"
           id="margin-normal"
           margin="normal"
-          type="number"
         />
         <TextField
           value={fieldTwo}
           onChange={(e) => setFieldTwo(e.target.value)}
-          label={"Наиенование работы"}
+          label="Описание"
           id="margin-normal"
           margin="normal"
         />

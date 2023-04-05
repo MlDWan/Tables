@@ -51,9 +51,9 @@ function useRouteMatch(patterns) {
 
 function MyTabs() {
   const routeMatch = useRouteMatch([
-    "/owners",
+    "/owner",
     "/flat/getAll",
-    "/workers",
+    "/worker",
     "/opt",
     "/op/getAll",
   ]);
@@ -61,20 +61,15 @@ function MyTabs() {
 
   return (
     <Tabs value={currentTab}>
-      <Tab label="Жильцы" value="/owners" to="/owners" component={Link} />
+      <Tab label="Жильцы" value="/owner" to="/owner" component={Link} />
       <Tab
         label="Квартиры"
         value="/flat/getAll"
         to="/flat/getAll"
         component={Link}
       />
-      <Tab label="Рабочие" value="/workers" to="/workers" component={Link} />
-      <Tab
-        label="Типы операций"
-        value="/opt"
-        to="/opt"
-        component={Link}
-      />
+      <Tab label="Рабочие" value="/worker" to="/worker" component={Link} />
+      <Tab label="Типы операций" value="/opt" to="/opt" component={Link} />
       <Tab
         label="Операции"
         value="/op/getAll"
@@ -91,13 +86,10 @@ export default function TabsRouter() {
       <MyTabs />
 
       <Routes>
-        <Route path="/owners" element={<MUITableOwners />} />
+        <Route path="/owner" element={<MUITableOwners />} />
         <Route path="/flat/getAll" element={<MUITableFlats />} />
-        <Route path="/workers" element={<MUITableWorkers />} />
-        <Route
-          path="/opt"
-          element={<MUITableTypeOperations />}
-        />
+        <Route path="/worker" element={<MUITableWorkers />} />
+        <Route path="/opt" element={<MUITableTypeOperations />} />
         <Route path="/op/getAll" element={<MUITableOperations />} />
       </Routes>
     </Box>

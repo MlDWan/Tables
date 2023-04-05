@@ -1,98 +1,143 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { dataTable } from "../tableData";
 import { v4 as uuidv4 } from "uuid";
-import { createFlat, getAllFlats } from "./requests/flatRequests";
+import {
+  changeFlat,
+  createFlat,
+  deleteFlat,
+  getAllFlats,
+  getFlat,
+} from "./requests/flatRequests";
+import {
+  changeOwner,
+  createOwner,
+  deleteOwner,
+  getAllOwners,
+  getOwner,
+} from "./requests/ownersRequest";
+import {
+  changeWorker,
+  createWorker,
+  deleteWorker,
+  getAllWorkers,
+  getWorker,
+} from "./requests/workersRequest";
+import {
+  changeOpt,
+  createOpt,
+  deleteOpt,
+  getAllOpts,
+  getOpt,
+} from "./requests/typeOperationsRequest";
+import {
+  changeOp,
+  createOp,
+  deleteOp,
+  getAllOps,
+  getOp,
+} from "./requests/operationsRequest";
 
 export const tablesSlice = createSlice({
   name: "tablesData",
   initialState: {
-    tablesData: dataTable,
+    FlatData: [],
+    OwnerData: [],
+    OPData: [],
+    OPTData: [],
+    WorkerData: [],
+    oneFlat: {},
+    oneOwner: {},
+    oneWorker: {},
+    oneOP: {},
+    oneOPT: {},
   },
-  reducers: {
-    addData(state, action) {
-      console.log(action);
-      state.tablesData.push({
-        id: uuidv4(),
-        address: action.payload.address,
-        floor: action.payload.floor,
-        number_of_rooms: action.payload.number_of_rooms,
-        area: action.payload.area,
-        id_owners: action.payload.id_owners,
-      });
-    },
-    remove(state, action) {
-      state.tablesData = state.tablesData.filter(
-        (item) => item.id !== action.payload.id
-      );
-    },
-  },
-
+  reducers: {},
+  //GetAll
   extraReducers: (builder) => {
     builder.addCase(getAllFlats.fulfilled, (state, action) => {
-      state.tablesData = action.payload;
+      state.FlatData = action.payload;
+    });
+    builder.addCase(getAllOwners.fulfilled, (state, action) => {
+      state.OwnerData = action.payload;
+    });
+    builder.addCase(getAllWorkers.fulfilled, (state, action) => {
+      state.WorkerData = action.payload;
+    });
+    builder.addCase(getAllOpts.fulfilled, (state, action) => {
+      state.OPTData = action.payload;
+    });
+    builder.addCase(getAllOps.fulfilled, (state, action) => {
+      state.OPData = action.payload;
     });
 
-    builder
-      .addCase(createFlat.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(createFlat.fulfilled, (state, action) => {
-        state.tablesData = action.payload;
-        state.isLoading = false;
-        state.error = "";
-      })
-      .addCase(createFlat.rejected, (state, action) => {
-        state.error = action.payload ?? "";
-        state.isLoading = false;
-      });
+    //GetOne
+    builder.addCase(getFlat.fulfilled, (state, action) => {
+      state.oneFlat = action.payload;
+    });
+    builder.addCase(getOwner.fulfilled, (state, action) => {
+      state.oneOwner = action.payload;
+    });
+    builder.addCase(getWorker.fulfilled, (state, action) => {
+      state.oneWorker = action.payload;
+    });
+    builder.addCase(getOpt.fulfilled, (state, action) => {
+      state.oneOPT = action.payload;
+    });
+    builder.addCase(getOp.fulfilled, (state, action) => {
+      state.oneOP = action.payload;
+    });
 
-    // builder
-    //   .addCase(changeStatus.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(changeStatus.fulfilled, (state, action) => {
-    //     state.matters = action.payload;
-    //     state.isLoading = false;
-    //     state.error = "";
-    //   })
-    //   .addCase(changeStatus.rejected, (state, action) => {
-    //     state.error = action.payload ?? "";
-    //     state.isLoading = false;
-    //   });
+    //Create
+    builder.addCase(createFlat.fulfilled, (state, action) => {
+      state.FlatData = action.payload;
+    });
+    builder.addCase(createOwner.fulfilled, (state, action) => {
+      state.OwnerData = action.payload;
+    });
+    builder.addCase(createWorker.fulfilled, (state, action) => {
+      state.WorkerData = action.payload;
+    });
+    builder.addCase(createOpt.fulfilled, (state, action) => {
+      state.OPTData = action.payload;
+    });
+    builder.addCase(createOp.fulfilled, (state, action) => {
+      state.OPData = action.payload;
+    });
 
-    // builder
-    //   .addCase(deleteCurrentMatter.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(deleteCurrentMatter.fulfilled, (state, action) => {
-    //     successToast("Matter has been successfully deleted");
-    //     state.matters = action.payload;
-    //     state.isLoading = false;
-    //     state.error = "";
-    //   })
-    //   .addCase(deleteCurrentMatter.rejected, (state, action) => {
-    //     errorToast(action.payload ?? "unknown");
-    //     state.error = action.payload ?? "";
-    //     state.isLoading = false;
-    //   });
+    //Delete
+    builder.addCase(deleteFlat.fulfilled, (state, action) => {
+      state.FlatData = action.payload;
+    });
+    builder.addCase(deleteOwner.fulfilled, (state, action) => {
+      state.OwnerData = action.payload;
+    });
+    builder.addCase(deleteWorker.fulfilled, (state, action) => {
+      state.WorkerData = action.payload;
+    });
+    builder.addCase(deleteOpt.fulfilled, (state, action) => {
+      state.OPTData = action.payload;
+    });
+    builder.addCase(deleteOp.fulfilled, (state, action) => {
+      state.OPData = action.payload;
+    });
 
-    // builder
-    //   .addCase(changeMatter.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(changeMatter.fulfilled, (state, action) => {
-    //     successToast("Matter has been successfully changed");
-    //     state.matters = action.payload;
-    //     state.isLoading = false;
-    //     state.error = "";
-    //   })
-    //   .addCase(changeMatter.rejected, (state, action) => {
-    //     errorToast(action.payload ?? "unknown");
-    //     state.error = action.payload ?? "";
-    //     state.isLoading = false;
-    //   });
+    //Change
+    builder.addCase(changeFlat.fulfilled, (state, action) => {
+      state.FlatData = action.payload;
+    });
+    builder.addCase(changeOwner.fulfilled, (state, action) => {
+      state.OwnerData = action.payload;
+    });
+    builder.addCase(changeWorker.fulfilled, (state, action) => {
+      state.WorkerData = action.payload;
+    });
+    builder.addCase(changeOpt.fulfilled, (state, action) => {
+      state.OPTData = action.payload;
+    });
+    builder.addCase(changeOp.fulfilled, (state, action) => {
+      state.OPData = action.payload;
+    });
   },
 });
 
-export const { addTodo, remove } = tablesSlice.actions;
 export default tablesSlice.reducer;

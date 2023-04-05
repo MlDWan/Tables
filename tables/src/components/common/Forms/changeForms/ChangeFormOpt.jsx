@@ -1,19 +1,27 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import ContainedButtons from "../Buttons/ButtonAdd";
 import { useState } from "react";
+import ContainedButtons from "../../Buttons/ButtonAdd";
 
-export default function TypeOperationsTextFields({ onSubmit }) {
-  const [fieldOne, setFieldOne] = useState("");
-  const [fieldTwo, setFieldTwo] = useState("");
+export default function ChangeOptTextFields({
+  onSubmit,
+  optId,
+  name,
+  price,
+  handleModal,
+}) {
+  const [fieldOne, setFieldOne] = useState(name);
+  const [fieldTwo, setFieldTwo] = useState(price);
 
   const submit = (e) => {
     e.preventDefault();
     onSubmit({
-      fltOperationPrice: Number(fieldOne),
-      txtOperationTypeName: fieldTwo,
+      id: Number(optId),
+      txtOperationTypeName: fieldOne,
+      fltOperationPrice: Number(fieldTwo),
     });
+    handleModal();
   };
   return (
     <Box
@@ -26,16 +34,16 @@ export default function TypeOperationsTextFields({ onSubmit }) {
         <TextField
           value={fieldOne}
           onChange={(e) => setFieldOne(e.target.value)}
-          label={"Стоимость работы"}
+          label={"Наименование"}
           id="margin-normal"
           margin="normal"
-          type="number"
         />
         <TextField
           value={fieldTwo}
           onChange={(e) => setFieldTwo(e.target.value)}
-          label={"Наиенование работы"}
+          label="Стоимость"
           id="margin-normal"
+          type="number"
           margin="normal"
         />
         <ContainedButtons isSubmit />
