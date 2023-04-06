@@ -73,7 +73,7 @@ export const MUITableOperations = () => {
   return (
     <TableContainer component={Paper}>
       <Button variant="outlined" color="info" onClick={handleModalFilter}>
-        Filter
+        Фильтр
       </Button>
 
       <Table aria-label={"simple table"}>
@@ -104,13 +104,13 @@ export const MUITableOperations = () => {
                   variant="outlined"
                   color="error"
                   onClick={() => dispatch(deleteOp(row.intOperationId))}>
-                  Delete
+                  Удалить
                 </Button>
                 <Button
                   variant="outlined"
                   color="info"
                   onClick={() => handleModal(row.intOperationId)}>
-                  Change
+                  Изменить
                 </Button>
               </TableCell>
             </TableRow>

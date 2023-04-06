@@ -87,13 +87,13 @@ export const MUITableOwners = () => {
                   variant="outlined"
                   color="error"
                   onClick={() => dispatch(deleteOwner(row.intOwnerId))}>
-                  Delete
+                  Удалить
                 </Button>
                 <Button
                   variant="outlined"
                   color="primary"
                   onClick={() => handleModal(row.intOwnerId)}>
-                  Change
+                  Изменить
                 </Button>
               </TableCell>
             </TableRow>

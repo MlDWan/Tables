@@ -71,7 +71,7 @@ export const MUITableFlats = () => {
   return (
     <TableContainer component={Paper}>
       <Button variant="outlined" color="info" onClick={handleModalFilter}>
-        Filter
+        Фильтр
       </Button>
 
       <Table aria-label={"simple table"}>
@@ -115,7 +115,7 @@ export const MUITableFlats = () => {
                   variant="outlined"
                   color="error"
                   onClick={() => dispatch(deleteFlat(row.intFlatId))}>
-                  Delete
+                  Удалить
                 </Button>
 
                 <Button
@@ -123,7 +123,7 @@ export const MUITableFlats = () => {
                   variant="outlined"
                   color="info"
                   onClick={() => handleModal(row.intFlatId)}>
-                  Change
+                  Изменить
                 </Button>
               </TableCell>
             </TableRow>

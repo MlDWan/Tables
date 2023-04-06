@@ -81,13 +81,13 @@ export const MUITableTypeOperations = () => {
                   variant="outlined"
                   color="error"
                   onClick={() => dispatch(deleteOpt(row.intOperationTypeId))}>
-                  Delete
+                  Удалить
                 </Button>
                 <Button
                   variant="outlined"
                   color="primary"
                   onClick={() => handleModal(row.intOperationTypeId)}>
-                  Change
+                  Изменить
                 </Button>
               </TableCell>
             </TableRow>

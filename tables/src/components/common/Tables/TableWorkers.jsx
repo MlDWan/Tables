@@ -85,13 +85,13 @@ export const MUITableWorkers = () => {
                   variant="outlined"
                   color="error"
                   onClick={() => dispatch(deleteWorker(row.intWorkerId))}>
-                  Delete
+                  Удалить
                 </Button>
                 <Button
                   variant="outlined"
                   color="primary"
                   onClick={() => handleModal(row.intWorkerId)}>
-                  Change
+                  Изменить
                 </Button>
               </TableCell>
             </TableRow>
