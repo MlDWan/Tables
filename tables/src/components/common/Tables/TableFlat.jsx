@@ -36,7 +36,9 @@ export const MUITableFlats = () => {
   const [open, setOpen] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const [openInfo, setOpenInfo] = useState(false);
-
+  const ownersId = tableData
+    .map((e) => e.intOwnerId.map((e) => e.intOwnerId))
+    .flat();
   const handleModal = (id) => {
     id && setItem(tableData.find((item) => id === item.intFlatId));
     setOpen((prev) => {
@@ -145,7 +147,7 @@ export const MUITableFlats = () => {
             <FlatInfo info={oneFlat} />
           </InfoModal>
           <FilterModal open={openFilter} handleModalFilter={handleModalFilter}>
-            <FilterFlatTextFields onSubmit={handleFilters} />
+            <FilterFlatTextFields onSubmit={handleFilters} ownersId={ownersId} />
           </FilterModal>
         </TableBody>
       </Table>

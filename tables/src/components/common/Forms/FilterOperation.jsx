@@ -2,9 +2,13 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, MenuItem } from "@mui/material";
 
-export default function FilterOperationTextFields({ onSubmit }) {
+export default function FilterOperationTextFields({
+  onSubmit,
+  flatsId,
+  workersId,
+}) {
   const [fieldOne, setFieldOne] = useState("");
   const [fieldTwo, setFieldTwo] = useState("");
   const [fieldThree, setFieldThree] = useState("");
@@ -44,22 +48,33 @@ export default function FilterOperationTextFields({ onSubmit }) {
           margin="normal"
           type="date"
         />
+
         <TextField
           value={fieldThree}
           onChange={(e) => setFieldThree(e.target.value)}
           label={"Id работника"}
           id="margin-normal"
           margin="normal"
-          type="number"
-        />
+          select>
+          {workersId.map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </TextField>
         <TextField
           value={fieldFour}
           onChange={(e) => setFieldFour(e.target.value)}
           label={"Id квартиры"}
           id="margin-normal"
           margin="normal"
-          type="number"
-        />
+          select>
+          {flatsId.map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </TextField>
         <Button variant="outlined" color="warning" type="submit">
           Применить
         </Button>

@@ -2,9 +2,9 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, MenuItem } from "@mui/material";
 
-export default function FilterFlatTextFields({ onSubmit }) {
+export default function FilterFlatTextFields({ onSubmit, ownersId }) {
   const [fieldOne, setFieldOne] = useState("");
   const [fieldTwo, setFieldTwo] = useState("");
   const [fieldThree, setFieldThree] = useState("");
@@ -31,7 +31,9 @@ export default function FilterFlatTextFields({ onSubmit }) {
         display: "flex",
         flexDirection: "column",
         "& .MuiTextField-root": { width: "100%" },
-      }}>
+      }}
+      autoComplete="off"
+      noValidate>
       <form onSubmit={submit} style={{ display: "grid" }}>
         <TextField
           value={fieldOne}
@@ -39,7 +41,13 @@ export default function FilterFlatTextFields({ onSubmit }) {
           label={"id пользователя"}
           id="margin-normal"
           margin="normal"
-        />
+          select>
+          {ownersId.map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </TextField>
         <TextField
           value={fieldTwo}
           onChange={(e) => setFieldTwo(e.target.value)}

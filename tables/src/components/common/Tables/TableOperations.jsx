@@ -43,6 +43,8 @@ export const MUITableOperations = () => {
       return !prev;
     });
   };
+  const flatsId = tableData.map((e) => e.flats.intFlatId);
+  const workersId = tableData.map((e) => e.intWorkerId.intWorkerId);
   const handleModal = (id) => {
     id && setItem(tableData.find((item) => id === item.intOperationId));
     setOpen((prev) => {
@@ -125,7 +127,11 @@ export const MUITableOperations = () => {
             />
           </ChangeTransitionsModal>
           <FilterModal open={openFilter} handleModalFilter={handleModalFilter}>
-            <FilterOperationTextFields onSubmit={handleFilters} />
+            <FilterOperationTextFields
+              onSubmit={handleFilters}
+              flatsId={flatsId}
+              workersId={workersId}
+            />
           </FilterModal>
           <InfoModal open={openInfo} width={1000} handleModal={handleModalInfo}>
             <OPInfo info={oneOP} />
