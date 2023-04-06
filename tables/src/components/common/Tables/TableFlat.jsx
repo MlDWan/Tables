@@ -22,6 +22,7 @@ import FilterModal from "../Modals/FilretModal";
 import FilterFlatTextFields from "../Forms/FilterFlat";
 import InfoModal from "../Modals/ModalInfo";
 import FlatInfo from "./TabInfo/FlatInfo";
+import { useLocation } from "react-router-dom";
 
 export const MUITableFlats = () => {
   const dispatch = useDispatch();

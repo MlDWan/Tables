@@ -1,4 +1,4 @@
-const base = process.env.REACT_APP_CHACKRA_API;
+const base = process.env.REACT_APP_API;
 
 export const URLs = {
   flat: {

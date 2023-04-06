@@ -3,6 +3,7 @@ import { wrapper } from "../wrapper";
 
 export const requestAllFlats = async (body) => {
   const url = URLs.flat.all;
+
   const { data } = await wrapper({
     method: METHODS.POST,
     url,
