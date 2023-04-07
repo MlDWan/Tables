@@ -15,8 +15,11 @@ export default function FlatTextFields({ onSubmit, row }) {
   const [fieldFive, setFieldFive] = useState("");
 
   const owners = useSelector((state) => state.tables.OwnerData);
-  const getIdOwner = (name) =>
-    owners.find((e) => e.txtOwnerName === name).intOwnerId;
+  const getIdOwner = (name) => {
+    if (name) {
+      return owners.find((e) => e.txtOwnerName === name).intOwnerId;
+    }
+  };
 
   const dispatch = useDispatch();
   React.useEffect(() => {

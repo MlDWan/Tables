@@ -3,6 +3,9 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import ContainedButtons from "../../Buttons/ButtonAdd";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllOwners } from "../../../../store/requests/ownersRequest";
+import { MenuItem } from "@mui/material";
 
 export default function ChangeFlatTextFields({
   onSubmit,
@@ -19,6 +22,19 @@ export default function ChangeFlatTextFields({
   const [fieldThree, setFieldThree] = useState(storney);
   const [fieldFour, setFieldFour] = useState(area);
   const [fieldFive, setFieldFive] = useState(owner);
+
+  const owners = useSelector((state) => state.tables.OwnerData);
+  const getIdOwner = (name) => {
+    if (name) {
+      return owners.find((e) => e.txtOwnerName === name).intOwnerId;
+    }
+  };
+
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(getAllOwners());
+  }, []);
+
   const submit = (e) => {
     e.preventDefault();
     onSubmit({
@@ -73,10 +89,17 @@ export default function ChangeFlatTextFields({
         <TextField
           value={fieldFive}
           onChange={(e) => setFieldFive(e.target.value)}
-          label={"Id владельца"}
+          label={"Владелец"}
           id="margin-normal"
           margin="normal"
-        />
+          select>
+          {owners.map((option) => (
+            <MenuItem key={option.intOwnerId} value={option.txtOwnerName}>
+              {option.txtOwnerName} {option.txtOwnerSecondName}{" "}
+              {option.txtOwnerSurname}
+            </MenuItem>
+          ))}
+        </TextField>
         <ContainedButtons isSubmit />
       </form>
     </Box>

@@ -64,14 +64,14 @@ export default function ChangeWorkerTextFields({
         <TextField
           value={fieldFour}
           onChange={(e) => setFieldFour(e.target.value)}
-          label={"Адрес"}
+          label={"Специализация"}
           id="margin-normal"
           margin="normal"
         />
         <TextField
           value={fieldFive}
           onChange={(e) => setFieldFive(e.target.value)}
-          label={"Адрес"}
+          label={"Оплата"}
           id="margin-normal"
           margin="normal"
         />
