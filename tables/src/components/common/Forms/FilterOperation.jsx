@@ -3,24 +3,40 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { Button, MenuItem } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllFlats } from "../../../store/requests/flatRequests";
+import { getAllWorkers } from "../../../store/requests/workersRequest";
 
-export default function FilterOperationTextFields({
-  onSubmit,
-  flatsId,
-  workersId,
-}) {
+export default function FilterOperationTextFields({ onSubmit }) {
   const [fieldOne, setFieldOne] = useState("");
   const [fieldTwo, setFieldTwo] = useState("");
   const [fieldThree, setFieldThree] = useState("");
   const [fieldFour, setFieldFour] = useState("");
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(getAllWorkers());
+    dispatch(getAllFlats());
+  }, []);
 
+  const workers = useSelector((state) => state.tables.WorkerData);
+  const flats = useSelector((state) => state.tables.FlatData);
+  const getIdWorker = (name) => {
+    if (name) {
+      return workers.find((e) => e.txtWorkerName === name).intWorkerId;
+    }
+  };
+  const getIdFlat = (name) => {
+    if (name) {
+      return flats.find((e) => e.txtFlatAddress === name).intFlatId;
+    }
+  };
   const submit = (e) => {
     e.preventDefault();
     onSubmit({
       operation_date_from: fieldOne,
       operation_date_to: fieldTwo,
-      workerId: Number(fieldThree),
-      flatId: Number(fieldFour),
+      workerId: getIdWorker(fieldThree),
+      flatId: getIdFlat(fieldFour),
     });
   };
 
@@ -52,26 +68,28 @@ export default function FilterOperationTextFields({
         <TextField
           value={fieldThree}
           onChange={(e) => setFieldThree(e.target.value)}
-          label={"Id работника"}
+          label={"Работник"}
           id="margin-normal"
           margin="normal"
           select>
-          {workersId.map((option) => (
-            <MenuItem key={option} value={option}>
-              {option}
+          {workers.map((option) => (
+            <MenuItem key={option.intWorkerId} value={option.txtWorkerName}>
+              {option.txtWorkerSurname}
+              {option.txtWorkerName}
+              {option.txtWorkerSecondName}
             </MenuItem>
           ))}
         </TextField>
         <TextField
           value={fieldFour}
           onChange={(e) => setFieldFour(e.target.value)}
-          label={"Id квартиры"}
+          label={"Адрес"}
           id="margin-normal"
           margin="normal"
           select>
-          {flatsId.map((option) => (
-            <MenuItem key={option} value={option}>
-              {option}
+          {flats.map((option) => (
+            <MenuItem key={option.intFlatId} value={option.txtFlatAddress}>
+              {option.txtFlatAddress}
             </MenuItem>
           ))}
         </TextField>

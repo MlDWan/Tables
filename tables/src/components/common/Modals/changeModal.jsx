@@ -3,11 +3,6 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import OwnersTextFields from "../Forms/OwnersForm";
-import FlatTextFields from "../Forms/Form";
-import WorkersTextFields from "../Forms/WorkersForm";
-import TypeOperationsTextFields from "../Forms/TypeOperationsForm";
-import OperationsTextFields from "../Forms/OperationsForm";
 
 const style = {
   position: "absolute",

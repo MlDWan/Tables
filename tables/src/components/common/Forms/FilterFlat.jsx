@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { Button, MenuItem } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllOwners } from "../../../store/requests/ownersRequest";
 
 export default function FilterFlatTextFields({ onSubmit, ownersId }) {
   const [fieldOne, setFieldOne] = useState("");
@@ -12,11 +14,22 @@ export default function FilterFlatTextFields({ onSubmit, ownersId }) {
   const [fieldFive, setFieldFive] = useState("");
   const [fieldSix, setFieldSix] = useState("");
   const [fieldSeven, setFieldSeven] = useState("");
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(getAllOwners());
+  }, []);
+
+  const owners = useSelector((state) => state.tables.OwnerData);
+  const getIdOwner = (name) => {
+    if (name) {
+      return owners.find((e) => e.txtOwnerName === name).intOwnerId;
+    }
+  };
 
   const submit = (e) => {
     e.preventDefault();
     onSubmit({
-      ownerId: Number(fieldOne),
+      ownerId: getIdOwner(fieldOne),
       fltAreaMin: Number(fieldTwo),
       fltAreaMax: Number(fieldThree),
       intCountMin: Number(fieldFour),
@@ -42,9 +55,10 @@ export default function FilterFlatTextFields({ onSubmit, ownersId }) {
           id="margin-normal"
           margin="normal"
           select>
-          {ownersId.map((option) => (
-            <MenuItem key={option} value={option}>
-              {option}
+          {owners.map((option) => (
+            <MenuItem key={option.ownerId} value={option.txtOwnerName}>
+              {option.txtOwnerName} {option.txtOwnerSecondName}{" "}
+              {option.txtOwnerSurname}
             </MenuItem>
           ))}
         </TextField>

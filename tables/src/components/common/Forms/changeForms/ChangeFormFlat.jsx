@@ -27,7 +27,7 @@ export default function ChangeFlatTextFields({
       fltArea: Number(fieldFour),
       intCount: Number(fieldThree),
       txtFlatAddress: fieldOne,
-      intOwnerId: Number(fieldFive),
+      ownerId: Number(fieldFive),
     });
     handleModal();
   };

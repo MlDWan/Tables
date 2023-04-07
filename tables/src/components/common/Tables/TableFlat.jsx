@@ -22,7 +22,6 @@ import FilterModal from "../Modals/FilretModal";
 import FilterFlatTextFields from "../Forms/FilterFlat";
 import InfoModal from "../Modals/ModalInfo";
 import FlatInfo from "./TabInfo/FlatInfo";
-import { useLocation } from "react-router-dom";
 
 export const MUITableFlats = () => {
   const dispatch = useDispatch();
@@ -96,10 +95,10 @@ export const MUITableFlats = () => {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
               <TableCell>{row?.intFlatId}</TableCell>
               <TableCell>
-                {row?.intOwnerId?.map((user) => user?.txtOwnerName)}
+                {row?.intOwnerId?.map((user) => user?.txtOwnerName) + "\n"}
               </TableCell>
               <TableCell>
-                {row?.intOwnerId?.map((user) => user?.txtOwnerSurname)}
+                {row?.intOwnerId?.map((user) => user?.txtOwnerSurname) + "\n"}
               </TableCell>
               <TableCell>{row?.txtFlatAddress}</TableCell>
               <TableCell>{row?.intCount}</TableCell>
@@ -147,7 +146,10 @@ export const MUITableFlats = () => {
             <FlatInfo info={oneFlat} />
           </InfoModal>
           <FilterModal open={openFilter} handleModalFilter={handleModalFilter}>
-            <FilterFlatTextFields onSubmit={handleFilters} ownersId={ownersId} />
+            <FilterFlatTextFields
+              onSubmit={handleFilters}
+              ownersId={ownersId}
+            />
           </FilterModal>
         </TableBody>
       </Table>
