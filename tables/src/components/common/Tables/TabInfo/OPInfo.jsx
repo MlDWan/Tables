@@ -33,10 +33,15 @@ const OPInfo = ({ info }) => {
             <TableCell align="center">{info?.flats?.txtFlatAddress}</TableCell>
             <TableCell align="center">{info?.flats?.intStorey}</TableCell>
             <TableCell align="center">
-              {info?.intOperationTypeId?.map((e) => e.txtOperationTypeName)}
+              {info?.intOperationTypeId?.map(
+                (e) => e.txtOperationTypeName + ",\n"
+              )}
             </TableCell>
             <TableCell align="center">
-              {info?.intOperationTypeId?.map((e) => e.fltOperationPrice)}
+              {info?.intOperationTypeId?.reduce(
+                (acc, curr) => acc + Number(curr.fltOperationPrice),
+                0
+              )}
             </TableCell>
             <TableCell align="center">
               {info?.intWorkerId?.txtWorkerSurname}

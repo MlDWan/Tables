@@ -7,14 +7,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllWorkers } from "../../../store/requests/workersRequest";
 import { getAllFlats } from "../../../store/requests/flatRequests";
 import { getAllOpts } from "../../../store/requests/typeOperationsRequest";
-import { MenuItem } from "@mui/material";
+import { InputLabel, MenuItem, OutlinedInput, Select } from "@mui/material";
 
 export default function OperationsTextFields({ onSubmit }) {
   const [fieldOne, setFieldOne] = useState("");
   const [fieldTwo, setFieldTwo] = useState("");
   const [fieldThree, setFieldThree] = useState("");
-  const [fieldFour, setFieldFour] = useState("");
+  const [fieldFour, setFieldFour] = useState([]);
   const [fieldError, setFieldError] = useState(false);
+
+  // const [selectoOpts, setselectoOpts] = useState([]);
+
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setFieldFour(typeof value === "string" ? value.split(",") : value);
+  };
+
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
 
   const dispatch = useDispatch();
   React.useEffect(() => {
@@ -30,9 +50,12 @@ export default function OperationsTextFields({ onSubmit }) {
     workers.find((e) => e.txtWorkerName === name).intWorkerId;
   const getIdFlat = (name) =>
     flats.find((e) => e.txtFlatAddress === name).intFlatId;
-  const getIdOpt = (name) => [
-    opts.find((e) => e.txtOperationTypeName === name).intOperationTypeId,
-  ];
+  const getIdOpt = (name) => {
+    return name.map(
+      (elem) =>
+        opts.find((e) => e.txtOperationTypeName === elem).intOperationTypeId
+    );
+  };
   const submit = (e) => {
     e.preventDefault();
     setFieldError(false);
@@ -103,7 +126,24 @@ export default function OperationsTextFields({ onSubmit }) {
             </MenuItem>
           ))}
         </TextField>
-        <TextField
+        <InputLabel id="demo-multiple-name-label">Name</InputLabel>
+        <Select
+          labelId="demo-multiple-name-label"
+          id="demo-multiple-name"
+          multiple
+          value={fieldFour}
+          onChange={handleChange}
+          input={<OutlinedInput label="txtOperationTypeName" />}
+          MenuProps={MenuProps}>
+          {opts.map((name) => (
+            <MenuItem
+              key={name.intOperationTypeId}
+              value={name.txtOperationTypeName}>
+              {name.txtOperationTypeName}
+            </MenuItem>
+          ))}
+        </Select>
+        {/* <TextField
           value={fieldFour}
           onChange={(e) => setFieldFour(e.target.value)}
           label={"Тип работы"}
@@ -122,7 +162,7 @@ export default function OperationsTextFields({ onSubmit }) {
               {option.txtOperationTypeName}
             </MenuItem>
           ))}
-        </TextField>
+        </TextField> */}
         <ContainedButtons isSubmit />
       </form>
     </Box>
