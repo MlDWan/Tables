@@ -3,9 +3,9 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import ContainedButtons from "../../Buttons/ButtonAdd";
-import { getAllWorkers } from "../../../../store/requests/workersRequest";
 import { useDispatch, useSelector } from "react-redux";
 import { MenuItem } from "@mui/material";
+import { getAllFlats } from "../../../../store/requests/flatRequests";
 
 export default function ChangeOwnerTextFields({
   onSubmit,
@@ -23,14 +23,14 @@ export default function ChangeOwnerTextFields({
 
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(getAllWorkers());
+    dispatch(getAllFlats());
   }, []);
 
   const flats = useSelector((state) => state.tables.FlatData);
 
   const getIdFlat = (name) => {
     if (name) {
-      return flats.find((e) => e.txtFlatAddress === name).intFlatId;
+      return flats.find((e) => e.txtFlatAddress === name).txtFlatAddress;
     }
   };
 
@@ -41,7 +41,7 @@ export default function ChangeOwnerTextFields({
       txtOwnerSurname: fieldOne,
       txtOwnerName: fieldTwo,
       txtOwnerSecondName: fieldThree,
-      txtAddress: fieldFour,
+      txtAddress: getIdFlat(fieldFour),
     });
     handleModal();
   };
@@ -74,13 +74,16 @@ export default function ChangeOwnerTextFields({
           id="margin-normal"
           margin="normal"
         />
-       <TextField
+        <TextField
           value={fieldFour}
           onChange={(e) => setFieldFour(e.target.value)}
           label={"Адрес"}
           id="margin-normal"
           margin="normal"
           select>
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
           {flats.map((option) => (
             <MenuItem key={option.intFlatId} value={option.txtFlatAddress}>
               {option.txtFlatAddress}

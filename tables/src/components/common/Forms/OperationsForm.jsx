@@ -4,7 +4,6 @@ import TextField from "@mui/material/TextField";
 import ContainedButtons from "../Buttons/ButtonAdd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllOwners } from "../../../store/requests/ownersRequest";
 import { getAllWorkers } from "../../../store/requests/workersRequest";
 import { getAllFlats } from "../../../store/requests/flatRequests";
 import { getAllOpts } from "../../../store/requests/typeOperationsRequest";
@@ -15,6 +14,8 @@ export default function OperationsTextFields({ onSubmit }) {
   const [fieldTwo, setFieldTwo] = useState("");
   const [fieldThree, setFieldThree] = useState("");
   const [fieldFour, setFieldFour] = useState("");
+  const [fieldError, setFieldError] = useState(false);
+
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(getAllWorkers());
@@ -34,12 +35,19 @@ export default function OperationsTextFields({ onSubmit }) {
   ];
   const submit = (e) => {
     e.preventDefault();
-    onSubmit({
-      txtOperationDescription: fieldOne,
-      intWorkerId: getIdWorker(fieldTwo),
-      flatId: getIdFlat(fieldThree),
-      operationTypeId: getIdOpt(fieldFour),
-    });
+    setFieldError(false);
+
+    if (fieldOne && fieldTwo && fieldThree && fieldFour) {
+      setFieldError(false);
+      onSubmit({
+        txtOperationDescription: fieldOne,
+        intWorkerId: getIdWorker(fieldTwo),
+        flatId: getIdFlat(fieldThree),
+        operationTypeId: getIdOpt(fieldFour),
+      });
+    } else {
+      setFieldError(true);
+    }
   };
   return (
     <Box
@@ -55,6 +63,8 @@ export default function OperationsTextFields({ onSubmit }) {
           label={"Описание работы"}
           id="margin-normal"
           margin="normal"
+          helperText="Поле не должно быть пустым."
+          error={fieldError}
         />
         <TextField
           value={fieldTwo}
@@ -62,11 +72,15 @@ export default function OperationsTextFields({ onSubmit }) {
           label={"Работник"}
           id="margin-normal"
           margin="normal"
+          helperText="Поле не должно быть пустым."
+          error={fieldError}
           select>
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
           {workers.map((option) => (
             <MenuItem key={option.intWorkerId} value={option.txtWorkerName}>
-              {option.txtWorkerSurname}
-              {option.txtWorkerName}
+              {option.txtWorkerSurname} {option.txtWorkerName}{" "}
               {option.txtWorkerSecondName}
             </MenuItem>
           ))}
@@ -77,7 +91,12 @@ export default function OperationsTextFields({ onSubmit }) {
           label={"Адрес"}
           id="margin-normal"
           margin="normal"
+          helperText="Поле не должно быть пустым."
+          error={fieldError}
           select>
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
           {flats.map((option) => (
             <MenuItem key={option.intFlatId} value={option.txtFlatAddress}>
               {option.txtFlatAddress}
@@ -87,10 +106,15 @@ export default function OperationsTextFields({ onSubmit }) {
         <TextField
           value={fieldFour}
           onChange={(e) => setFieldFour(e.target.value)}
-          label={"Услуг"}
+          label={"Тип работы"}
           id="margin-normal"
           margin="normal"
+          helperText="Поле не должно быть пустым."
+          error={fieldError}
           select>
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
           {opts.map((option) => (
             <MenuItem
               key={option.intOperationTypeId}

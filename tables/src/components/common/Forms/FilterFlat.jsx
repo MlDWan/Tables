@@ -55,6 +55,9 @@ export default function FilterFlatTextFields({ onSubmit, ownersId }) {
           id="margin-normal"
           margin="normal"
           select>
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
           {owners.map((option) => (
             <MenuItem key={option.ownerId} value={option.txtOwnerName}>
               {option.txtOwnerName} {option.txtOwnerSecondName}{" "}

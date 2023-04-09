@@ -7,13 +7,21 @@ import { useState } from "react";
 export default function TypeOperationsTextFields({ onSubmit }) {
   const [fieldOne, setFieldOne] = useState("");
   const [fieldTwo, setFieldTwo] = useState("");
+  const [fieldError, setFieldError] = useState(false);
 
   const submit = (e) => {
     e.preventDefault();
-    onSubmit({
-      fltOperationPrice: Number(fieldOne),
-      txtOperationTypeName: fieldTwo,
-    });
+    setFieldError(false);
+
+    if (fieldOne && fieldTwo) {
+      setFieldError(false);
+      onSubmit({
+        fltOperationPrice: Number(fieldOne),
+        txtOperationTypeName: fieldTwo,
+      });
+    } else {
+      setFieldError(true);
+    }
   };
   return (
     <Box
@@ -30,13 +38,17 @@ export default function TypeOperationsTextFields({ onSubmit }) {
           id="margin-normal"
           margin="normal"
           type="number"
+          helperText="Поле должно быть числом и не должно быть пустым."
+          error={fieldError}
         />
         <TextField
           value={fieldTwo}
           onChange={(e) => setFieldTwo(e.target.value)}
-          label={"Наиенование работы"}
+          label={"Наименование работы"}
           id="margin-normal"
           margin="normal"
+          helperText="Поле не должно быть пустым."
+          error={fieldError}
         />
         <ContainedButtons isSubmit />
       </form>

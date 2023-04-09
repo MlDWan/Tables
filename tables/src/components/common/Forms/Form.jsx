@@ -13,6 +13,7 @@ export default function FlatTextFields({ onSubmit, row }) {
   const [fieldThree, setFieldThree] = useState("");
   const [fieldFour, setFieldFour] = useState("");
   const [fieldFive, setFieldFive] = useState("");
+  const [fieldError, setFieldError] = useState(false);
 
   const owners = useSelector((state) => state.tables.OwnerData);
   const getIdOwner = (name) => {
@@ -28,13 +29,26 @@ export default function FlatTextFields({ onSubmit, row }) {
 
   const submit = (e) => {
     e.preventDefault();
-    onSubmit({
-      txtFlatAddress: fieldOne,
-      fltArea: Number(fieldTwo),
-      intCount: Number(fieldThree),
-      intStorey: Number(fieldFour),
-      ownerId: getIdOwner(fieldFive),
-    });
+    setFieldError(false);
+
+    if (
+      fieldOne &&
+      Number(fieldTwo) &&
+      Number(fieldThree) &&
+      Number(fieldFour) &&
+      fieldFive
+    ) {
+      setFieldError(false);
+      onSubmit({
+        txtFlatAddress: fieldOne,
+        fltArea: Number(fieldTwo),
+        intCount: Number(fieldThree),
+        intStorey: Number(fieldFour),
+        ownerId: getIdOwner(fieldFive),
+      });
+    } else {
+      setFieldError(true);
+    }
   };
 
   return (
@@ -51,6 +65,8 @@ export default function FlatTextFields({ onSubmit, row }) {
           label={"Адрес"}
           id="margin-normal"
           margin="normal"
+          helperText="Поле не должно быть пустым."
+          error={fieldError}
         />
         <TextField
           value={fieldTwo}
@@ -59,6 +75,8 @@ export default function FlatTextFields({ onSubmit, row }) {
           type="number"
           id="margin-normal"
           margin="normal"
+          helperText="Поле должно быть числом и не должно быть пустым."
+          error={fieldError}
         />
         <TextField
           value={fieldThree}
@@ -67,6 +85,8 @@ export default function FlatTextFields({ onSubmit, row }) {
           id="margin-normal"
           margin="normal"
           type="number"
+          helperText="Поле должно быть числом и не должно быть пустым."
+          error={fieldError}
         />
         <TextField
           value={fieldFour}
@@ -75,6 +95,8 @@ export default function FlatTextFields({ onSubmit, row }) {
           id="margin-normal"
           margin="normal"
           type="number"
+          helperText="Поле должно быть числом и не должно быть пустым."
+          error={fieldError}
         />
         <TextField
           value={fieldFive}
@@ -82,7 +104,12 @@ export default function FlatTextFields({ onSubmit, row }) {
           label={"Владелец"}
           id="margin-normal"
           margin="normal"
+          helperText="Поле не должно быть пустым."
+          error={fieldError}
           select>
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
           {owners.map((option) => (
             <MenuItem key={option.intOwnerId} value={option.txtOwnerName}>
               {option.txtOwnerName} {option.txtOwnerSecondName}{" "}

@@ -72,6 +72,9 @@ export default function FilterOperationTextFields({ onSubmit }) {
           id="margin-normal"
           margin="normal"
           select>
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
           {workers.map((option) => (
             <MenuItem key={option.intWorkerId} value={option.txtWorkerName}>
               {option.txtWorkerSurname}
@@ -87,6 +90,9 @@ export default function FilterOperationTextFields({ onSubmit }) {
           id="margin-normal"
           margin="normal"
           select>
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
           {flats.map((option) => (
             <MenuItem key={option.intFlatId} value={option.txtFlatAddress}>
               {option.txtFlatAddress}

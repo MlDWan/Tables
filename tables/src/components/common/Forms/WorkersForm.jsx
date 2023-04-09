@@ -10,16 +10,23 @@ export default function WorkersTextFields({ onSubmit }) {
   const [fieldThree, setFieldThree] = useState("");
   const [fieldFour, setFieldFour] = useState("");
   const [fieldFive, setFieldFive] = useState("");
+  const [fieldError, setFieldError] = useState(false);
 
   const submit = (e) => {
     e.preventDefault();
-    onSubmit({
-      txtWorkerSurname: String(fieldOne),
-      txtWorkerName: String(fieldTwo),
-      txtWorkerSecondName: String(fieldThree),
-      txtWorkerSpecialist: String(fieldFour),
-      fltSum: Number(fieldFive),
-    });
+    setFieldError(false);
+    if (fieldOne && fieldTwo && fieldThree && fieldFour && Number(fieldFive)) {
+      setFieldError(false);
+      onSubmit({
+        txtWorkerSurname: String(fieldOne),
+        txtWorkerName: String(fieldTwo),
+        txtWorkerSecondName: String(fieldThree),
+        txtWorkerSpecialist: String(fieldFour),
+        fltSum: Number(fieldFive),
+      });
+    } else {
+      setFieldError(true);
+    }
   };
   return (
     <Box
@@ -35,6 +42,8 @@ export default function WorkersTextFields({ onSubmit }) {
           label={"Фамилия"}
           id="margin-normal"
           margin="normal"
+          helperText="Поле не должно быть пустым."
+          error={fieldError}
         />
         <TextField
           value={fieldTwo}
@@ -42,6 +51,8 @@ export default function WorkersTextFields({ onSubmit }) {
           label={"Имя"}
           id="margin-normal"
           margin="normal"
+          helperText="Поле не должно быть пустым."
+          error={fieldError}
         />
         <TextField
           value={fieldThree}
@@ -49,6 +60,8 @@ export default function WorkersTextFields({ onSubmit }) {
           label={"Отчество"}
           id="margin-normal"
           margin="normal"
+          helperText="Поле не должно быть пустым."
+          error={fieldError}
         />
         <TextField
           value={fieldFour}
@@ -56,6 +69,8 @@ export default function WorkersTextFields({ onSubmit }) {
           label={"Специальность"}
           id="margin-normal"
           margin="normal"
+          helperText="Поле не должно быть пустым."
+          error={fieldError}
         />
         <TextField
           value={fieldFive}
@@ -63,6 +78,9 @@ export default function WorkersTextFields({ onSubmit }) {
           label={"Стоимость работы"}
           id="margin-normal"
           margin="normal"
+          type="number"
+          helperText="Поле должно быть числом и не должно быть пустым."
+          error={fieldError}
         />
         <ContainedButtons isSubmit />
       </form>

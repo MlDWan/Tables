@@ -93,6 +93,9 @@ export default function ChangeFlatTextFields({
           id="margin-normal"
           margin="normal"
           select>
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
           {owners.map((option) => (
             <MenuItem key={option.intOwnerId} value={option.txtOwnerName}>
               {option.txtOwnerName} {option.txtOwnerSecondName}{" "}
