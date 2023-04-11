@@ -5,6 +5,8 @@ import { useState } from "react";
 import TabsRouter from "./components/Header";
 import { Button } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -52,6 +54,7 @@ function App() {
         handleModal={handleModal}
         path={location.pathname}
       />
+      <ToastContainer />
     </div>
   );
 }

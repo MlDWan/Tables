@@ -89,7 +89,7 @@ export const MUITableOperations = () => {
           {tableData?.map((row) => (
             <TableRow
               onClick={() => handleModalInfo(row.intOperationId)}
-              key={row?.intFlatId}
+              key={row.intOperationId}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
               <TableCell>{row?.intOperationId}</TableCell>
               <TableCell>{row?.datOperationDate.slice(0, 10)}</TableCell>
