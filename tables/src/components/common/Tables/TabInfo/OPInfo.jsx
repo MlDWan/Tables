@@ -39,8 +39,8 @@ const OPInfo = ({ info }) => {
             </TableCell>
             <TableCell align="center">
               {info?.intOperationTypeId?.reduce(
-                (acc, curr) => acc + Number(curr.fltOperationPrice),
-                0
+                (acc, curr) => Number(acc) + Number(curr.fltOperationPrice),
+                info?.intWorkerId.fltSum
               )}
             </TableCell>
             <TableCell align="center">

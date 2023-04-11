@@ -92,7 +92,7 @@ export const MUITableOperations = () => {
               key={row?.intFlatId}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
               <TableCell>{row?.intOperationId}</TableCell>
-              <TableCell>{row?.datOperationDate}</TableCell>
+              <TableCell>{row?.datOperationDate.slice(0, 10)}</TableCell>
               <TableCell>{row?.txtOperationDescription}</TableCell>
               <TableCell
                 style={{

@@ -126,7 +126,7 @@ export default function OperationsTextFields({ onSubmit }) {
             </MenuItem>
           ))}
         </TextField>
-        <InputLabel id="demo-multiple-name-label">Name</InputLabel>
+        <InputLabel id="demo-multiple-name-label">Тип операции</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
@@ -143,26 +143,6 @@ export default function OperationsTextFields({ onSubmit }) {
             </MenuItem>
           ))}
         </Select>
-        {/* <TextField
-          value={fieldFour}
-          onChange={(e) => setFieldFour(e.target.value)}
-          label={"Тип работы"}
-          id="margin-normal"
-          margin="normal"
-          helperText="Поле не должно быть пустым."
-          error={fieldError}
-          select>
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {opts.map((option) => (
-            <MenuItem
-              key={option.intOperationTypeId}
-              value={option.txtOperationTypeName}>
-              {option.txtOperationTypeName}
-            </MenuItem>
-          ))}
-        </TextField> */}
         <ContainedButtons isSubmit />
       </form>
     </Box>

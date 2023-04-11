@@ -14,19 +14,6 @@ export default function OwnersTextFields({ onSubmit }) {
   const [fieldFour, setFieldFour] = useState("");
   const [fieldError, setFieldError] = useState(false);
 
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(getAllFlats());
-  }, []);
-
-  const flats = useSelector((state) => state.tables.FlatData);
-
-  const getFlat = (name) => {
-    if (name) {
-      return flats.find((e) => e.txtFlatAddress === name).txtFlatAddress;
-    }
-  };
-
   const submit = (e) => {
     e.preventDefault();
 
@@ -38,7 +25,7 @@ export default function OwnersTextFields({ onSubmit }) {
         txtOwnerSurname: String(fieldOne),
         txtOwnerName: String(fieldTwo),
         txtOwnerSecondName: String(fieldThree),
-        txtAddress: getFlat(fieldFour),
+        txtAddress: String(fieldFour),
       });
     } else {
       setFieldError(true);
@@ -86,16 +73,15 @@ export default function OwnersTextFields({ onSubmit }) {
           id="margin-normal"
           margin="normal"
           helperText="Поле не должно быть пустым."
-          error={fieldError}
-          select>
-          <MenuItem value="">
+          error={fieldError}>
+          {/* <MenuItem value="">
             <em>None</em>
           </MenuItem>
           {flats.map((option) => (
             <MenuItem key={option.intFlatId} value={option.txtFlatAddress}>
               {option.txtFlatAddress}
             </MenuItem>
-          ))}
+          ))} */}
         </TextField>
         <ContainedButtons isSubmit />
       </form>

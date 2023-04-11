@@ -25,7 +25,7 @@ export default function ChangeFlatTextFields({
 
   const owners = useSelector((state) => state.tables.OwnerData);
   const getIdOwner = (name) => {
-    if (name) {
+    if (typeof name === "string") {
       return owners.find((e) => e.txtOwnerName === name).intOwnerId;
     }
   };
