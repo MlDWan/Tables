@@ -95,10 +95,10 @@ export const MUITableFlats = () => {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
               <TableCell>{row?.intFlatId}</TableCell>
               <TableCell>
-                {row?.intOwnerId?.map((user) => user?.txtOwnerName + ";\n")}
+                {row?.intOwnerId?.map((user) => user?.txtOwnerName + ",\n")}
               </TableCell>
               <TableCell>
-                {row?.intOwnerId?.map((user) => user?.txtOwnerSurname + ";\n")}
+                {row?.intOwnerId?.map((user) => user?.txtOwnerSurname + ",\n")}
               </TableCell>
               <TableCell>{row?.txtFlatAddress}</TableCell>
               <TableCell>{row?.intCount}</TableCell>

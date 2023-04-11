@@ -21,19 +21,6 @@ export default function ChangeOwnerTextFields({
   const [fieldThree, setFieldThree] = useState(secondName);
   const [fieldFour, setFieldFour] = useState(address);
 
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(getAllFlats());
-  }, []);
-
-  const flats = useSelector((state) => state.tables.FlatData);
-
-  const getIdFlat = (name) => {
-    if (name) {
-      return flats.find((e) => e.txtFlatAddress === name).txtFlatAddress;
-    }
-  };
-
   const submit = (e) => {
     e.preventDefault();
     onSubmit({
@@ -41,7 +28,7 @@ export default function ChangeOwnerTextFields({
       txtOwnerSurname: fieldOne,
       txtOwnerName: fieldTwo,
       txtOwnerSecondName: fieldThree,
-      txtAddress: getIdFlat(fieldFour),
+      txtAddress: fieldFour,
     });
     handleModal();
   };
@@ -79,17 +66,7 @@ export default function ChangeOwnerTextFields({
           onChange={(e) => setFieldFour(e.target.value)}
           label={"Адрес"}
           id="margin-normal"
-          margin="normal"
-          select>
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {flats.map((option) => (
-            <MenuItem key={option.intFlatId} value={option.txtFlatAddress}>
-              {option.txtFlatAddress}
-            </MenuItem>
-          ))}
-        </TextField>
+          margin="normal"></TextField>
 
         <ContainedButtons isSubmit />
       </form>
